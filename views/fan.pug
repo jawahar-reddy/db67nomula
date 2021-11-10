@@ -2,13 +2,15 @@ extends layout
 
 block content
   h1= title
-  //- const fan = ['fan_type','color','cost']
-  - let items = results;
+
+  - let items = results; 
+
+  - let o;
   script.
     function buy(x){
       alert('Purchased Item: ' + x)
    } 
   div(class='container-fluid')
     div(class='row')
-      each results, index in fan
-        div(class='col-sm-2' onclick='buy('+index+')') #{results}
+      each o, index in items 
+        div(class='col-sm-3' onclick='buy('+index+')') #{o} 
