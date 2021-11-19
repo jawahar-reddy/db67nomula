@@ -1,53 +1,20 @@
-//- extends layout
-
-//- block content
-//-   h1= title
-
-//-   - let items = results; 
-
-//-   - let o;
-//-   script.
-//-     function buy(x){
-//-       alert('Purchased Item: ' + x)
-//-    } 
-//-   div(class='container-fluid')
-//-     div(class='row')
-//-       each o, index in items 
-//-         div(class='col-sm-3' onclick='buy('+index+')') #{o} 
-
-extends layout
-
 block content
-  div(class="row m-2")
-  h1(class="col-sm-10")= title
-  a(href = "jet/create" class="btn bg-info text-white col-sm-2") Create
-  |  
+  h1= title
 
-  - const jet = ['fan_type','color','cost']
-  //- let items = [] 
   - let items = results; 
+
   - let o;
   script.
     function buy(x){
       alert('Purchased Item: ' + x)
-   } 
-
-  div(class='container-fluid')
-    div(class="d-flex justify-content-end")
-
-    div(class="p-3 mb-2 bg-info text-white row")
-      each item in jet 
-        div(class="col-sm-2") #{item} :
-
-    
-    each o, index in items
-      div(class="card text-info bg-warning mb-3" class='col' class='card' class='card-body' class='card-text' onclick='buy('+index+')') #{o}
-        
-          div(class='col-sm-2') #{o.fan_type}
-          div(class='col-sm-2') #{o.color}
-          div(class='col-sm-2') $ #{o.cost}
-          div(class='col-sm-6')
-            //- div(class='col-sm-3' onclick='buy('+index+')') #{o} 
-            a(href = "jet/detail/?id=" + o._id)    detail --
-            a(href = "jet/update/?id=" + o._id)    update --
-            a(href = "jet/delete/?id=" + o._id)    delete      
+    } 
+  div(class="container-fluid") 
+    div(class="row m-1") 
+      each item in items  
+        - let destination = `dispatch(\"/fan/update?id=${item._id}\")` 
+        div(class="row-sm-2" class="m-1") Item #{item.fan_type}(#{item.color}) is #{item.cost} 
+          button.btn( class="btn-primary ml-1", onclick= destination) Update 
+script. 
+  function dispatch(path){ 
+    window.location.href=path 
+  }
