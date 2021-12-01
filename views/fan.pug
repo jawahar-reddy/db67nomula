@@ -2,18 +2,24 @@ block content
   h1= title
 
   - let items = results; 
-
+  - let destination4 = `dispatch(\"/apple/create")` 
   - let o;
   script.
     function buy(x){
       alert('Purchased Item: ' + x)
     } 
   div(class="container-fluid") 
+    button.btn( class="btn-warning", onclick= destination4) Add
+  div(class="container-fluid") 
     div(class="row m-1") 
       each item in items  
         - let destination = `dispatch(\"/fan/update?id=${item._id}\")` 
+        - let destination2 = `dispatch(\"/fan/delete?id=${item._id}\")`
+        - let destination3 = `dispatch(\"/fan/detail?id=${item._id}\")`
         div(class="row-sm-2" class="m-1") Item #{item.fan_type}(#{item.color}) is #{item.cost} 
           button.btn( class="btn-primary ml-1", onclick= destination) Update 
+          button.btn( class="btn-secondary", onclick= destination2) Delete
+          button.btn( class="btn-warning", onclick= destination3) View
 script. 
   function dispatch(path){ 
     window.location.href=path 
